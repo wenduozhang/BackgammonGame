@@ -212,7 +212,7 @@ public class BackgammonGameProc {
 		int diceNum[] = new int[2];
 		char moveWay = 0;
 		//int moveFrom2 = 0;
-		String cmd;
+		String cmd=new String();
 		Scanner s = new Scanner(System.in);
 		if (turn == 0) {
 			moveTurn[0] = p1;// A first, then B
@@ -238,11 +238,12 @@ public class BackgammonGameProc {
 			System.out.println("Type 'pip' to check how many steps you've moved\n");
 			System.out.println("or type 'roll' to roll your dices and decide your move steps.\n");
 			// s.nextLine();
-			
-				cmd = s.next();
+				if(s.hasNext()) {
+					cmd = s.next();
+				}
 				while (!(cmd.equals("ROLL") ||cmd.equals( "roll") || cmd.equals("PIP") ||cmd.equals("pip"))) {
 					System.out.println("Bad command. Please try again \n");
-					cmd = s.next();
+						cmd = s.next();
 				}
 				
 				if(cmd.equals("PIP")||cmd.equals("pip")){
@@ -303,7 +304,6 @@ public class BackgammonGameProc {
 			System.out.println("Current doubling: x" + doubleValue + "\n");
 			board.showBoard(p1, p2);
 	}
-		s.close();
 	}
 
 	public int pip(Player p) {
@@ -480,7 +480,6 @@ public class BackgammonGameProc {
 		System.out.println("Press any key to leave the game.\n");
 		if (c.hasNext()) {
 			System.out.println("Game End.\n");
-			c.close();
 		}
 		
 		return 0;
@@ -607,7 +606,7 @@ public class BackgammonGameProc {
 								if (c.hasNext()) {
 									choiceStep = c.nextInt();
 								}
-								while(choiceStep!=1||choiceStep!=2||choiceStep!=3) {
+								while(!(choiceStep==1||choiceStep==2||choiceStep==3)) {
 									System.out.println("Invalid choice. Select again.\n");
 									System.out.println(p.getPlayerName()+ ": Select how you want to move:\n");
 									System.out.println("1) Move 3 times of dice point for first checker and once of dice point of second checker \n");
@@ -672,7 +671,7 @@ public class BackgammonGameProc {
 							if (c.hasNext()) {
 								choiceStep = c.nextInt();
 							}
-							while(choiceStep!=1||choiceStep!=2) {
+							while(!(choiceStep==1||choiceStep==2)) {
 								System.out.println("Invalid choice. Select again.\n");
 								System.out.println(p.getPlayerName()+ ": Select how you want to move:\n");
 								System.out.println("1) Move 3 times of dice point for one checker and once of dice point of another checker \n");
@@ -742,7 +741,7 @@ public class BackgammonGameProc {
 							if (c.hasNext()) {
 								choiceStep = c.nextInt();
 							}
-							while(choiceStep!=1||choiceStep!=2) {
+							while(!(choiceStep==1||choiceStep==2)) {
 								System.out.println("Invalid choice. Select again.\n");
 								System.out.println("1) Move steps of dice 1 points, then dice 2 \n");
 								System.out.println("2) Move steps of dice 2 points, then dice 1 \n");
@@ -779,7 +778,7 @@ public class BackgammonGameProc {
 					if (c.hasNext()) {
 						Choice = c.next().charAt(0);
 					}
-					while(Choice!='A'||Choice!='B') {
+					while(!(Choice=='A'||Choice=='B')) {
 						System.out.println("Invalid choice. Select again.\n");
 						System.out.println(p.getPlayerName()+ ": Select how you want to move:\n");
 						System.out.println("A) Move 2 checkers from one lane \n");
@@ -814,7 +813,7 @@ public class BackgammonGameProc {
 								if (c.hasNext()) {
 									choiceStep = c.nextInt();
 								}
-								while(choiceStep!=1||choiceStep!=2||choiceStep!=3) {
+								while(!(choiceStep==1||choiceStep==2||choiceStep==3)) {
 									System.out.println("Invalid choice. Select again.\n");
 									System.out.println(p.getPlayerName()+ ": Select how you want to move:\n");
 									System.out.println("1) Move 3 times of dice point for first checker and once of dice point of second checker \n");
@@ -879,7 +878,7 @@ public class BackgammonGameProc {
 							if (c.hasNext()) {
 								choiceStep = c.nextInt();
 							}
-							while(choiceStep!=1||choiceStep!=2) {
+							while(!(choiceStep==1||choiceStep==2)) {
 								System.out.println("Invalid choice. Select again.\n");
 								System.out.println(p.getPlayerName()+ ": Select how you want to move:\n");
 								System.out.println("1) Move 3 times of dice point for one checker and once of dice point of another checker \n");
@@ -926,7 +925,6 @@ public class BackgammonGameProc {
 			}		
 		}
 		}
-		c.close();
 		}
 
 	/*
@@ -1738,7 +1736,6 @@ public class BackgammonGameProc {
 			}
 		}
 		}
-		c.close();
 
 	}
 
@@ -1852,6 +1849,10 @@ public class BackgammonGameProc {
 							"B) Checkers: " + Begin1 + "->" + (Begin1 - moveLength2) + " attack opponent checker at "
 									+ (Begin1 - moveLength2) + ", " + Begin2 + "->" + (Begin2 - moveLength1) + " \n");
 					moveChoice = c.nextLine().charAt(0);
+					while(moveChoice!='A'||moveChoice!='B') {
+						System.out.println("Wrong input. Try again.\n");
+						moveChoice = c.nextLine().charAt(0);
+					}
 					switch (moveChoice) {
 					case 'A' -> {
 						board.makeMove(Begin1, Begin1 - moveLength1);
@@ -1879,6 +1880,10 @@ public class BackgammonGameProc {
 					System.out.println("A) Checkers: " + Begin1 + "->" + (Begin1 - moveLength1) + ", " + Begin2 + "->"
 							+ (Begin2 - moveLength2) + " attack opponent checker at " + (Begin2 - moveLength2) + " \n");
 					moveChoice = c.nextLine().charAt(0);
+					while(moveChoice!='A') {
+						System.out.println("Wrong input. Try again.\n");
+						moveChoice = c.nextLine().charAt(0);
+					}
 					switch (moveChoice) {
 					case 'A' -> {
 						board.makeMove(Begin1, Begin1 - moveLength1);
@@ -1899,6 +1904,10 @@ public class BackgammonGameProc {
 					System.out.println("A) Checkers: " + Begin2 + "->" + (Begin2 - moveLength1) + ", " + Begin1 + "->"
 							+ (Begin1 - moveLength2) + " \n");
 					moveChoice = c.nextLine().charAt(0);
+					while(moveChoice!='A') {
+						System.out.println("Wrong input. Try again.\n");
+						moveChoice = c.nextLine().charAt(0);
+					}
 					switch (moveChoice) {
 					case 'A' -> {
 						board.makeMove(Begin2, Begin2 - moveLength1);
@@ -1918,6 +1927,10 @@ public class BackgammonGameProc {
 					System.out.println("A) Checkers: " + Begin2 + "->" + (Begin2 - moveLength1) + ", " + Begin1 + "->"
 							+ (Begin1 - moveLength2) + " attack opponent checker at " + (Begin1 - moveLength2) + " \n");
 					moveChoice = c.nextLine().charAt(0);
+					while(moveChoice!='A') {
+						System.out.println("Wrong input. Try again.\n");
+						moveChoice = c.nextLine().charAt(0);
+					}
 					switch (moveChoice) {
 					case 'A' -> {
 						board.makeMove(Begin2, Begin2 - moveLength1);
@@ -1938,6 +1951,10 @@ public class BackgammonGameProc {
 					System.out.println("A) Checker: " + Begin1 + "->" + (Begin1 - moveLength1) + " \n");
 					System.out.println("B) Checker: " + Begin2 + "->" + (Begin2 - moveLength2) + " \n");
 					moveChoice = c.nextLine().charAt(0);
+					while(moveChoice!='A'||moveChoice!='B') {
+						System.out.println("Wrong input. Try again.\n");
+						moveChoice = c.nextLine().charAt(0);
+					}
 					switch (moveChoice) {
 					case 'A' -> {
 						board.makeMove(Begin1, Begin1 - moveLength1);
@@ -1970,6 +1987,10 @@ public class BackgammonGameProc {
 							"B) Checkers: " + Begin1 + "->" + (Begin1 - moveLength2) + " attack opponent checker at "
 									+ (Begin1 - moveLength2) + ", " + Begin2 + "->" + (Begin2 - moveLength1) + " \n");
 					moveChoice = c.nextLine().charAt(0);
+					while(moveChoice!='A'||moveChoice!='B') {
+						System.out.println("Wrong input. Try again.\n");
+						moveChoice = c.nextLine().charAt(0);
+					}
 					switch (moveChoice) {
 					case 'A' -> {
 						board.Attack(Begin1 - moveLength1);
@@ -2002,6 +2023,10 @@ public class BackgammonGameProc {
 							"B) Checkers: " + Begin1 + "->" + (Begin1 - moveLength2) + " attack opponent checker at "
 									+ (Begin1 - moveLength2) + ", " + Begin2 + "->" + (Begin2 - moveLength1) + " \n");
 					moveChoice = c.nextLine().charAt(0);
+					while(moveChoice!='A'||moveChoice!='B') {
+						System.out.println("Wrong input. Try again.\n");
+						moveChoice = c.nextLine().charAt(0);
+					}
 					switch (moveChoice) {
 					case 'A' -> {
 						board.Attack(Begin1 - moveLength1);
@@ -2032,6 +2057,10 @@ public class BackgammonGameProc {
 					System.out.println("B) Checkers: " + Begin1 + "->" + (Begin1 - moveLength2) + ", " + Begin2 + "->"
 							+ (Begin2 - moveLength1) + " \n");
 					moveChoice = c.nextLine().charAt(0);
+					while(moveChoice!='A') {
+						System.out.println("Wrong input. Try again.\n");
+						moveChoice = c.nextLine().charAt(0);
+					}
 					switch (moveChoice) {
 					case 'A' -> {
 						board.Attack(Begin1 - moveLength1);
@@ -2062,6 +2091,10 @@ public class BackgammonGameProc {
 					System.out.println("B) Checkers: " + Begin1 + "->" + (Begin1 - moveLength2) + ", " + Begin2 + "->"
 							+ (Begin2 - moveLength1) + " \n");
 					moveChoice = c.nextLine().charAt(0);
+					while(moveChoice!='A'||moveChoice!='B') {
+						System.out.println("Wrong input. Try again.\n");
+						moveChoice = c.nextLine().charAt(0);
+					}
 					switch (moveChoice) {
 					case 'A' -> {
 						board.Attack(Begin1 - moveLength1);
@@ -2089,6 +2122,10 @@ public class BackgammonGameProc {
 							+ " attack opponent checker at " + (Begin1 - moveLength1) + " \n");
 					System.out.println("B) Checkers: " + Begin2 + "->" + (Begin2 - moveLength1) + " \n");
 					moveChoice = c.nextLine().charAt(0);
+					while(moveChoice!='A'||moveChoice!='B') {
+						System.out.println("Wrong input. Try again.\n");
+						moveChoice = c.nextLine().charAt(0);
+					}
 					switch (moveChoice) {
 					case 'A' -> {
 						board.Attack(Begin1 - moveLength1);
@@ -2120,6 +2157,10 @@ public class BackgammonGameProc {
 							+ " attack opponent checker at " + (Begin1 - moveLength2) + ", " + Begin2 + "->"
 							+ (Begin2 - moveLength1) + " attack opponent checker at " + (Begin2 - moveLength1) + " \n");
 					moveChoice = c.nextLine().charAt(0);
+					while(moveChoice!='A'||moveChoice!='B') {
+						System.out.println("Wrong input. Try again.\n");
+						moveChoice = c.nextLine().charAt(0);
+					}
 					switch (moveChoice) {
 					case 'A' -> {
 						board.makeMove(Begin1, Begin1 - moveLength1);
@@ -2151,6 +2192,10 @@ public class BackgammonGameProc {
 							+ " attack opponent checker at " + (Begin1 - moveLength2) + ", " + Begin2 + "->"
 							+ (Begin2 - moveLength1) + " attack opponent checker at " + (Begin2 - moveLength1) + " \n");
 					moveChoice = c.nextLine().charAt(0);
+					while(moveChoice!='A'||moveChoice!='B') {
+						System.out.println("Wrong input. Try again.\n");
+						moveChoice = c.nextLine().charAt(0);
+					}
 					switch (moveChoice) {
 					case 'A' -> {
 						board.makeMove(Begin1, Begin1 - moveLength1);
@@ -2180,6 +2225,10 @@ public class BackgammonGameProc {
 					System.out.println("B) Checkers: " + Begin1 + "->" + (Begin1 - moveLength2) + ", " + Begin2 + "->"
 							+ (Begin2 - moveLength1) + " attack opponent checker at " + (Begin2 - moveLength1) + " \n");
 					moveChoice = c.nextLine().charAt(0);
+					while(moveChoice!='A'||moveChoice!='B') {
+						System.out.println("Wrong input. Try again.\n");
+						moveChoice = c.nextLine().charAt(0);
+					}
 					switch (moveChoice) {
 					case 'A' -> {
 						board.makeMove(Begin1, Begin1 - moveLength1);
@@ -2209,6 +2258,10 @@ public class BackgammonGameProc {
 					System.out.println("B) Checkers: " + Begin1 + "->" + (Begin1 - moveLength2) + ", " + Begin2 + "->"
 							+ (Begin2 - moveLength1) + " attack opponent checker at " + (Begin2 - moveLength1) + " \n");
 					moveChoice = c.nextLine().charAt(0);
+					while(moveChoice!='A'||moveChoice!='B') {
+						System.out.println("Wrong input. Try again.\n");
+						moveChoice = c.nextLine().charAt(0);
+					}
 					switch (moveChoice) {
 					case 'A' -> {
 						board.makeMove(Begin1, Begin1 - moveLength1);
@@ -2236,6 +2289,10 @@ public class BackgammonGameProc {
 					System.out.println("B) Checkers: " + Begin2 + "->" + (Begin2 - moveLength1)
 							+ " attack opponent checker at " + (Begin2 - moveLength1) + " \n");
 					moveChoice = c.nextLine().charAt(0);
+					while(moveChoice!='A'||moveChoice!='B') {
+						System.out.println("Wrong input. Try again.\n");
+						moveChoice = c.nextLine().charAt(0);
+					}
 					switch (moveChoice) {
 					case 'A' -> {
 						board.makeMove(Begin1, Begin1 - moveLength1);
@@ -2264,6 +2321,10 @@ public class BackgammonGameProc {
 					System.out.println("A) Checkers: " + Begin1 + "->" + (Begin1 - moveLength1) + ", " + Begin2 + "->"
 							+ (Begin2 - moveLength2) + " attack opponent checker at " + (Begin2 - moveLength2) + " \n");
 					moveChoice = c.nextLine().charAt(0);
+					while(moveChoice!='A') {
+						System.out.println("Wrong input. Try again.\n");
+						moveChoice = c.nextLine().charAt(0);
+					}
 					switch (moveChoice) {
 					case 'A' -> {
 						board.makeMove(Begin1, Begin1 - moveLength1);
@@ -2285,6 +2346,10 @@ public class BackgammonGameProc {
 					System.out.println("A) Checkers: " + Begin1 + "->" + (Begin1 - moveLength1) + ", " + Begin2 + "->"
 							+ (Begin2 - moveLength2) + " \n");
 					moveChoice = c.nextLine().charAt(0);
+					while(moveChoice!='A') {
+						System.out.println("Wrong input. Try again.\n");
+						moveChoice = c.nextLine().charAt(0);
+					}
 					switch (moveChoice) {
 					case 'A' -> {
 						board.makeMove(Begin1, Begin1 - moveLength1);
@@ -2305,6 +2370,10 @@ public class BackgammonGameProc {
 					System.out.println("A) Checkers: " + Begin1 + "->" + (Begin1 - moveLength1) + ", " + Begin2 + "->"
 							+ (Begin2 - moveLength2) + " attack opponent checker at " + (Begin2 - moveLength2) + " \n");
 					moveChoice = c.nextLine().charAt(0);
+					while(moveChoice!='A') {
+						System.out.println("Wrong input. Try again.\n");
+						moveChoice = c.nextLine().charAt(0);
+					}
 					switch (moveChoice) {
 					case 'A' -> {
 						board.makeMove(Begin1, Begin1 - moveLength1);
@@ -2325,6 +2394,10 @@ public class BackgammonGameProc {
 					System.out.println("A) Checkers: " + Begin1 + "->" + (Begin1 - moveLength1) + ", " + Begin2 + "->"
 							+ (Begin2 - moveLength2) + " \n");
 					moveChoice = c.nextLine().charAt(0);
+					while(moveChoice!='A') {
+						System.out.println("Wrong input. Try again.\n");
+						moveChoice = c.nextLine().charAt(0);
+					}
 					switch (moveChoice) {
 					case 'A' -> {
 						board.makeMove(Begin1, Begin1 - moveLength1);
@@ -2343,6 +2416,10 @@ public class BackgammonGameProc {
 					System.out.println("Choose from these options:\n");
 					System.out.println("A) Checkers: " + Begin1 + "->" + (Begin1 - moveLength1) + " \n");
 					moveChoice = c.nextLine().charAt(0);
+					while(moveChoice!='A') {
+						System.out.println("Wrong input. Try again.\n");
+						moveChoice = c.nextLine().charAt(0);
+					}
 					switch (moveChoice) {
 					case 'A' -> {
 						board.makeMove(Begin1, Begin1 - moveLength1);
@@ -2367,6 +2444,10 @@ public class BackgammonGameProc {
 							"A) Checkers: " + Begin1 + "->" + (Begin1 - moveLength2) + " attack opponent checker at "
 									+ (Begin1 - moveLength2) + ", " + Begin2 + "->" + (Begin2 - moveLength1) + " \n");
 					moveChoice = c.nextLine().charAt(0);
+					while(moveChoice!='A') {
+						System.out.println("Wrong input. Try again.\n");
+						moveChoice = c.nextLine().charAt(0);
+					}
 					switch (moveChoice) {
 					case 'A' -> {
 						board.Attack(Begin1 - moveLength2);
@@ -2389,6 +2470,10 @@ public class BackgammonGameProc {
 							"A) Checkers: " + Begin1 + "->" + (Begin1 - moveLength2) + " attack opponent checker at "
 									+ (Begin1 - moveLength2) + ", " + Begin2 + "->" + (Begin2 - moveLength1) + " \n");
 					moveChoice = c.nextLine().charAt(0);
+					while(moveChoice!='A') {
+						System.out.println("Wrong input. Try again.\n");
+						moveChoice = c.nextLine().charAt(0);
+					}
 					switch (moveChoice) {
 					case 'A' -> {
 						board.Attack(Begin1 - moveLength2);
@@ -2410,6 +2495,10 @@ public class BackgammonGameProc {
 					System.out.println("A) Checkers: " + Begin1 + "->" + (Begin1 - moveLength2) + ", " + Begin2 + "->"
 							+ (Begin2 - moveLength1) + " \n");
 					moveChoice = c.nextLine().charAt(0);
+					while(moveChoice!='A') {
+						System.out.println("Wrong input. Try again.\n");
+						moveChoice = c.nextLine().charAt(0);
+					}
 					switch (moveChoice) {
 					case 'A' -> {
 						board.makeMove(Begin1, Begin1 - moveLength2);
@@ -2429,6 +2518,10 @@ public class BackgammonGameProc {
 					System.out.println("A) Checkers: " + Begin1 + "->" + (Begin1 - moveLength2) + ", " + Begin2 + "->"
 							+ (Begin2 - moveLength1) + " \n");
 					moveChoice = c.nextLine().charAt(0);
+					while(moveChoice!='A') {
+						System.out.println("Wrong input. Try again.\n");
+						moveChoice = c.nextLine().charAt(0);
+					}
 					switch (moveChoice) {
 					case 'A' -> {
 						board.makeMove(Begin1, Begin1 - moveLength2);
@@ -2447,6 +2540,10 @@ public class BackgammonGameProc {
 					System.out.println("Choose from these options:\n");
 					System.out.println("A) Checkers: " + Begin2 + "->" + (Begin2 - moveLength1) + " \n");
 					moveChoice = c.nextLine().charAt(0);
+					while(moveChoice!='A') {
+						System.out.println("Wrong input. Try again.\n");
+						moveChoice = c.nextLine().charAt(0);
+					}
 					switch (moveChoice) {
 					case 'A' -> {
 						board.makeMove(Begin2, Begin2 - moveLength1);
@@ -2469,6 +2566,10 @@ public class BackgammonGameProc {
 							+ " attack opponent checker at " + (Begin1 - moveLength1) + ", " + Begin2 + "->"
 							+ (Begin2 - moveLength2) + " attack opponent checker at " + (Begin2 - moveLength2) + " \n");
 					moveChoice = c.nextLine().charAt(0);
+					while(moveChoice!='A') {
+						System.out.println("Wrong input. Try again.\n");
+						moveChoice = c.nextLine().charAt(0);
+					}
 					switch (moveChoice) {
 					case 'A' -> {
 						board.Attack(Begin2 - moveLength1);
@@ -2491,6 +2592,10 @@ public class BackgammonGameProc {
 							"A) Checkers: " + Begin1 + "->" + (Begin1 - moveLength1) + " attack opponent checker at "
 									+ (Begin1 - moveLength1) + ", " + Begin2 + "->" + (Begin2 - moveLength2) + " \n");
 					moveChoice = c.nextLine().charAt(0);
+					while(moveChoice!='A') {
+						System.out.println("Wrong input. Try again.\n");
+						moveChoice = c.nextLine().charAt(0);
+					}
 					switch (moveChoice) {
 					case 'A' -> {
 						board.Attack(Begin1 - moveLength1);
@@ -2513,6 +2618,10 @@ public class BackgammonGameProc {
 							+ " attack opponent checker at " + (Begin1 - moveLength1) + ", " + Begin2 + "->"
 							+ (Begin2 - moveLength2) + " attack opponent checker at " + (Begin2 - moveLength2) + " \n");
 					moveChoice = c.nextLine().charAt(0);
+					while(moveChoice!='A') {
+						System.out.println("Wrong input. Try again.\n");
+						moveChoice = c.nextLine().charAt(0);
+					}
 					switch (moveChoice) {
 					case 'A' -> {
 						board.Attack(Begin1 - moveLength1);
@@ -2535,6 +2644,10 @@ public class BackgammonGameProc {
 							"A) Checkers: " + Begin1 + "->" + (Begin1 - moveLength1) + " attack opponent checker at "
 									+ (Begin1 - moveLength1) + ", " + Begin2 + "->" + (Begin2 - moveLength2) + " \n");
 					moveChoice = c.nextLine().charAt(0);
+					while(moveChoice!='A') {
+						System.out.println("Wrong input. Try again.\n");
+						moveChoice = c.nextLine().charAt(0);
+					}
 					switch (moveChoice) {
 					case 'A' -> {
 						board.Attack(Begin1 - moveLength1);
@@ -2555,6 +2668,10 @@ public class BackgammonGameProc {
 					System.out.println("A) Checkers: " + Begin1 + "->" + (Begin1 - moveLength1)
 							+ " attack opponent checker at " + (Begin1 - moveLength1) + " \n");
 					moveChoice = c.nextLine().charAt(0);
+					while(moveChoice!='A') {
+						System.out.println("Wrong input. Try again.\n");
+						moveChoice = c.nextLine().charAt(0);
+					}
 					switch (moveChoice) {
 					case 'A' -> {
 						board.Attack(Begin1 - moveLength1);
@@ -2580,6 +2697,10 @@ public class BackgammonGameProc {
 							+ " attack opponent checker at " + (Begin1 - moveLength2) + ", " + Begin2 + "->"
 							+ (Begin2 - moveLength1) + " attack opponent checker at " + (Begin2 - moveLength1) + " \n");
 					moveChoice = c.nextLine().charAt(0);
+					while(moveChoice!='A') {
+						System.out.println("Wrong input. Try again.\n");
+						moveChoice = c.nextLine().charAt(0);
+					}
 					switch (moveChoice) {
 					case 'A' -> {
 						board.Attack(Begin1 - moveLength2);
@@ -2603,6 +2724,10 @@ public class BackgammonGameProc {
 							+ " attack opponent checker at " + (Begin1 - moveLength2) + ", " + Begin2 + "->"
 							+ (Begin2 - moveLength1) + " attack opponent checker at " + (Begin2 - moveLength1) + " \n");
 					moveChoice = c.nextLine().charAt(0);
+					while(moveChoice!='A') {
+						System.out.println("Wrong input. Try again.\n");
+						moveChoice = c.nextLine().charAt(0);
+					}
 					switch (moveChoice) {
 					case 'A' -> {
 						board.Attack(Begin1 - moveLength2);
@@ -2625,6 +2750,10 @@ public class BackgammonGameProc {
 					System.out.println("A) Checkers: " + Begin1 + "->" + (Begin1 - moveLength2) + ", " + Begin2 + "->"
 							+ (Begin2 - moveLength1) + " attack opponent checker at " + (Begin2 - moveLength1) + " \n");
 					moveChoice = c.nextLine().charAt(0);
+					while(moveChoice!='A') {
+						System.out.println("Wrong input. Try again.\n");
+						moveChoice = c.nextLine().charAt(0);
+					}
 					switch (moveChoice) {
 					case 'A' -> {
 						board.makeMove(Begin1, Begin1 - moveLength2);
@@ -2645,6 +2774,10 @@ public class BackgammonGameProc {
 					System.out.println("A) Checkers: " + Begin1 + "->" + (Begin1 - moveLength2) + ", " + Begin2 + "->"
 							+ (Begin2 - moveLength1) + " attack opponent checker at " + (Begin2 - moveLength1) + " \n");
 					moveChoice = c.nextLine().charAt(0);
+					while(moveChoice!='A') {
+						System.out.println("Wrong input. Try again.\n");
+						moveChoice = c.nextLine().charAt(0);
+					}
 					switch (moveChoice) {
 					case 'A' -> {
 						board.makeMove(Begin1, Begin1 - moveLength2);
@@ -2665,6 +2798,10 @@ public class BackgammonGameProc {
 					System.out.println("A) Checkers: " + Begin2 + "->" + (Begin2 - moveLength1)
 							+ " attack opponent checker at " + (Begin2 - moveLength1) + " \n");
 					moveChoice = c.nextLine().charAt(0);
+					while(moveChoice!='A') {
+						System.out.println("Wrong input. Try again.\n");
+						moveChoice = c.nextLine().charAt(0);
+					}
 					switch (moveChoice) {
 					case 'A' -> {
 						board.Attack(Begin2 - moveLength1);
@@ -2691,6 +2828,10 @@ public class BackgammonGameProc {
 					System.out.println("B) Checkers: " + Begin1 + "->" + (Begin1 - moveLength2) + ", " + Begin2 + "->"
 							+ (Begin2 - moveLength1) + " attack opponent checker at " + (Begin2 - moveLength1) + " \n");
 					moveChoice = c.nextLine().charAt(0);
+					while(moveChoice!='A'||moveChoice!='B') {
+						System.out.println("Wrong input. Try again.\n");
+						moveChoice = c.nextLine().charAt(0);
+					}
 					switch (moveChoice) {
 					case 'A' -> {
 						board.Attack(Begin1 - moveLength1);
@@ -2719,6 +2860,10 @@ public class BackgammonGameProc {
 					System.out.println("A) Checkers: " + Begin1 + "->" + (Begin1 - moveLength2) + ", " + Begin2 + "->"
 							+ (Begin2 - moveLength1) + " attack opponent checker at " + (Begin2 - moveLength1) + " \n");
 					moveChoice = c.nextLine().charAt(0);
+					while(moveChoice!='A') {
+						System.out.println("Wrong input. Try again.\n");
+						moveChoice = c.nextLine().charAt(0);
+					}
 					switch (moveChoice) {
 					case 'A' -> {
 						board.makeMove(Begin1, Begin1 - moveLength2);
@@ -2744,6 +2889,10 @@ public class BackgammonGameProc {
 							+ " attack opponent checker at " + (Begin1 - moveLength2) + ", " + Begin2 + "->"
 							+ (Begin2 - moveLength1) + " attack opponent checker at " + (Begin2 - moveLength1) + " \n");
 					moveChoice = c.nextLine().charAt(0);
+					while(moveChoice!='A'||moveChoice!='B') {
+						System.out.println("Wrong input. Try again.\n");
+						moveChoice = c.nextLine().charAt(0);
+					}
 					switch (moveChoice) {
 					case 'A' -> {
 						board.Attack(Begin1 - moveLength1);
@@ -2773,6 +2922,10 @@ public class BackgammonGameProc {
 							+ " attack opponent checker at " + (Begin2 - moveLength1) + ", " + Begin1 + "->"
 							+ (Begin1 - moveLength2) + " attack opponent checker at " + (Begin1 - moveLength2) + " \n");
 					moveChoice = c.nextLine().charAt(0);
+					while(moveChoice!='A') {
+						System.out.println("Wrong input. Try again.\n");
+						moveChoice = c.nextLine().charAt(0);
+					}
 					switch (moveChoice) {
 					case 'A' -> {
 						board.Attack(Begin2 - moveLength1);
@@ -2795,6 +2948,10 @@ public class BackgammonGameProc {
 							"A) Checkers: " + Begin1 + "->" + (Begin1 - moveLength1) + " attack opponent checker at "
 									+ (Begin1 - moveLength1) + ", " + Begin2 + "->" + (Begin2 - moveLength2) + " \n");
 					moveChoice = c.nextLine().charAt(0);
+					while(moveChoice!='A') {
+						System.out.println("Wrong input. Try again.\n");
+						moveChoice = c.nextLine().charAt(0);
+					}
 					switch (moveChoice) {
 					case 'A' -> {
 						board.Attack(Begin1 - moveLength1);
@@ -2817,6 +2974,10 @@ public class BackgammonGameProc {
 					System.out.println("B) Checker: " + Begin2 + "->" + (Begin2 - moveLength2)
 							+ " attack opponent checker at " + (Begin2 - moveLength2) + " \n");
 					moveChoice = c.nextLine().charAt(0);
+					while(moveChoice!='A'||moveChoice!='B') {
+						System.out.println("Wrong input. Try again.\n");
+						moveChoice = c.nextLine().charAt(0);
+					}
 					switch (moveChoice) {
 					case 'A' -> {
 						board.Attack(Begin1 - moveLength1);
@@ -2847,6 +3008,10 @@ public class BackgammonGameProc {
 					System.out.println("A) Checkers: " + Begin1 + "->" + (Begin1 - moveLength2) + " \n");
 					System.out.println("B) Checkers: " + Begin2 + "->" + (Begin2 - moveLength2) + " \n");
 					moveChoice = c.nextLine().charAt(0);
+					while(moveChoice!='A'||moveChoice!='B') {
+						System.out.println("Wrong input. Try again.\n");
+						moveChoice = c.nextLine().charAt(0);
+					}
 					switch (moveChoice) {
 					case 'A' -> {
 						board.makeMove(Begin1, Begin1 - moveLength2);
@@ -2872,6 +3037,10 @@ public class BackgammonGameProc {
 					System.out.println("B) Checkers: " + Begin2 + "->" + (Begin2 - moveLength2)
 							+ " attack opponent checker at " + (Begin2 - moveLength2) + " \n");
 					moveChoice = c.nextLine().charAt(0);
+					while(moveChoice!='A'||moveChoice!='B') {
+						System.out.println("Wrong input. Try again.\n");
+						moveChoice = c.nextLine().charAt(0);
+					}
 					switch (moveChoice) {
 					case 'A' -> {
 						board.makeMove(Begin1, Begin1 - moveLength2);
@@ -2897,6 +3066,10 @@ public class BackgammonGameProc {
 							+ " attack opponent checker at " + (Begin1 - moveLength2) + " \n");
 					System.out.println("B) Checkers: " + Begin2 + "->" + (Begin2 - moveLength2) + " \n");
 					moveChoice = c.nextLine().charAt(0);
+					while(moveChoice!='A'||moveChoice!='B') {
+						System.out.println("Wrong input. Try again.\n");
+						moveChoice = c.nextLine().charAt(0);
+					}
 					switch (moveChoice) {
 					case 'A' -> {
 						board.Attack(Begin1 - moveLength2);
@@ -2923,6 +3096,10 @@ public class BackgammonGameProc {
 					System.out.println("B) Checkers: " + Begin2 + "->" + (Begin2 - moveLength2)
 							+ " attack opponent checker at " + (Begin2 - moveLength2) + " \n");
 					moveChoice = c.nextLine().charAt(0);
+					while(moveChoice!='A'||moveChoice!='B') {
+						System.out.println("Wrong input. Try again.\n");
+						moveChoice = c.nextLine().charAt(0);
+					}
 					switch (moveChoice) {
 					case 'A' -> {
 						board.Attack(Begin1 - moveLength2);
@@ -2947,6 +3124,10 @@ public class BackgammonGameProc {
 					System.out.println("Choose from these options:\n");
 					System.out.println("A) Checkers: " + Begin2 + "->" + (Begin2 - moveLength2) + " \n");
 					moveChoice = c.nextLine().charAt(0);
+					while(moveChoice!='A') {
+						System.out.println("Wrong input. Try again.\n");
+						moveChoice = c.nextLine().charAt(0);
+					}
 					switch (moveChoice) {
 					case 'A' -> {
 						board.makeMove(Begin2, Begin2 - moveLength2);
@@ -2965,6 +3146,10 @@ public class BackgammonGameProc {
 					System.out.println("A) Checkers: " + Begin2 + "->" + (Begin2 - moveLength2)
 							+ " attack opponent checker at " + (Begin2 - moveLength2) + " \n");
 					moveChoice = c.nextLine().charAt(0);
+					while(moveChoice!='A') {
+						System.out.println("Wrong input. Try again.\n");
+						moveChoice = c.nextLine().charAt(0);
+					}
 					switch (moveChoice) {
 					case 'A' -> {
 						board.Attack(Begin2 - moveLength2);
@@ -2999,6 +3184,10 @@ public class BackgammonGameProc {
 				System.out.println("B) Checkers: " + Begin1 + "->" + (Begin1 + moveLength2) + ", " + Begin2 + "->"
 						+ (Begin2 + moveLength1) + " \n");
 				moveChoice = c.nextLine().charAt(0);
+				while(moveChoice!='A'||moveChoice!='B') {
+					System.out.println("Wrong input. Try again.\n");
+					moveChoice = c.nextLine().charAt(0);
+				}
 				switch (moveChoice) {
 				case 'A' -> {
 					board.makeMove(Begin1, Begin1 + moveLength1);
@@ -3031,6 +3220,10 @@ public class BackgammonGameProc {
 						+ " attack opponent checker at " + (Begin1 + moveLength2) + ", " + Begin2 + "->"
 						+ (Begin2 + moveLength1) + " attack opponent checker at " + (Begin2 + moveLength1) + " \n");
 				moveChoice = c.nextLine().charAt(0);
+				while(moveChoice!='A'||moveChoice!='B') {
+					System.out.println("Wrong input. Try again.\n");
+					moveChoice = c.nextLine().charAt(0);
+				}
 				switch (moveChoice) {
 				case 'A' -> {
 					board.Attack(Begin1 + moveLength1);
@@ -3065,6 +3258,10 @@ public class BackgammonGameProc {
 					System.out.println("B) Checkers: " + Begin1 + "->" + (Begin1 + moveLength2) + ", " + Begin2 + "->"
 							+ (Begin2 + moveLength1) + " \n");
 					moveChoice = c.nextLine().charAt(0);
+					while(moveChoice!='A'||moveChoice!='B') {
+						System.out.println("Wrong input. Try again.\n");
+						moveChoice = c.nextLine().charAt(0);
+					}
 					switch (moveChoice) {
 					case 'A' -> {
 						board.makeMove(Begin1, Begin1 + moveLength1);
@@ -3095,6 +3292,10 @@ public class BackgammonGameProc {
 							"B) Checkers: " + Begin1 + "->" + (Begin1 + moveLength2) + " attack opponent checker at "
 									+ (Begin1 + moveLength2) + ", " + Begin2 + "->" + (Begin2 + moveLength1) + " \n");
 					moveChoice = c.nextLine().charAt(0);
+					while(moveChoice!='A'||moveChoice!='B') {
+						System.out.println("Wrong input. Try again.\n");
+						moveChoice = c.nextLine().charAt(0);
+					}
 					switch (moveChoice) {
 					case 'A' -> {
 						board.makeMove(Begin1, Begin1 + moveLength1);
@@ -3120,6 +3321,10 @@ public class BackgammonGameProc {
 					System.out.println("A) Checkers: " + Begin1 + "->" + (Begin1 + moveLength1) + ", " + Begin2 + "->"
 							+ (Begin2 + moveLength2) + " attack opponent checker at " + (Begin2 + moveLength2) + " \n");
 					moveChoice = c.nextLine().charAt(0);
+					while(moveChoice!='A') {
+						System.out.println("Wrong input. Try again.\n");
+						moveChoice = c.nextLine().charAt(0);
+					}
 					switch (moveChoice) {
 					case 'A' -> {
 						board.makeMove(Begin1, Begin1 + moveLength1);
@@ -3140,6 +3345,10 @@ public class BackgammonGameProc {
 					System.out.println("A) Checkers: " + Begin2 + "->" + (Begin2 + moveLength1) + ", " + Begin1 + "->"
 							+ (Begin1 + moveLength2) + " \n");
 					moveChoice = c.nextLine().charAt(0);
+					while(moveChoice!='A') {
+						System.out.println("Wrong input. Try again.\n");
+						moveChoice = c.nextLine().charAt(0);
+					}
 					switch (moveChoice) {
 					case 'A' -> {
 						board.makeMove(Begin2, Begin2 + moveLength1);
@@ -3159,6 +3368,10 @@ public class BackgammonGameProc {
 					System.out.println("A) Checkers: " + Begin2 + "->" + (Begin2 + moveLength1) + ", " + Begin1 + "->"
 							+ (Begin1 + moveLength2) + " attack opponent checker at " + (Begin1 + moveLength2) + " \n");
 					moveChoice = c.nextLine().charAt(0);
+					while(moveChoice!='A') {
+						System.out.println("Wrong input. Try again.\n");
+						moveChoice = c.nextLine().charAt(0);
+					}
 					switch (moveChoice) {
 					case 'A' -> {
 						board.makeMove(Begin2, Begin2 + moveLength1);
@@ -3179,6 +3392,10 @@ public class BackgammonGameProc {
 					System.out.println("A) Checker: " + Begin1 + "->" + (Begin1 + moveLength1) + " \n");
 					System.out.println("B) Checker: " + Begin2 + "->" + (Begin2 + moveLength2) + " \n");
 					moveChoice = c.nextLine().charAt(0);
+					while(moveChoice!='A'||moveChoice!='B') {
+						System.out.println("Wrong input. Try again.\n");
+						moveChoice = c.nextLine().charAt(0);
+					}
 					switch (moveChoice) {
 					case 'A' -> {
 						board.makeMove(Begin1, Begin1 + moveLength1);
@@ -3210,6 +3427,10 @@ public class BackgammonGameProc {
 							"B) Checkers: " + Begin1 + "->" + (Begin1 + moveLength2) + " attack opponent checker at "
 									+ (Begin1 + moveLength2) + ", " + Begin2 + "->" + (Begin2 + moveLength1) + " \n");
 					moveChoice = c.nextLine().charAt(0);
+					while(moveChoice!='A'||moveChoice!='B') {
+						System.out.println("Wrong input. Try again.\n");
+						moveChoice = c.nextLine().charAt(0);
+					}
 					switch (moveChoice) {
 					case 'A' -> {
 						board.Attack(Begin1 + moveLength1);
@@ -3242,6 +3463,10 @@ public class BackgammonGameProc {
 							"B) Checkers: " + Begin1 + "->" + (Begin1 + moveLength2) + " attack opponent checker at "
 									+ (Begin1 + moveLength2) + ", " + Begin2 + "->" + (Begin2 + moveLength1) + " \n");
 					moveChoice = c.nextLine().charAt(0);
+					while(moveChoice!='A'||moveChoice!='B') {
+						System.out.println("Wrong input. Try again.\n");
+						moveChoice = c.nextLine().charAt(0);
+					}
 					switch (moveChoice) {
 					case 'A' -> {
 						board.Attack(Begin1 + moveLength1);
@@ -3272,6 +3497,10 @@ public class BackgammonGameProc {
 					System.out.println("B) Checkers: " + Begin1 + "->" + (Begin1 + moveLength2) + ", " + Begin2 + "->"
 							+ (Begin2 + moveLength1) + " \n");
 					moveChoice = c.nextLine().charAt(0);
+					while(moveChoice!='A'||moveChoice!='B') {
+						System.out.println("Wrong input. Try again.\n");
+						moveChoice = c.nextLine().charAt(0);
+					}
 					switch (moveChoice) {
 					case 'A' -> {
 						board.Attack(Begin1 + moveLength1);
@@ -3302,6 +3531,10 @@ public class BackgammonGameProc {
 					System.out.println("B) Checkers: " + Begin1 + "->" + (Begin1 + moveLength2) + ", " + Begin2 + "->"
 							+ (Begin2 + moveLength1) + " \n");
 					moveChoice = c.nextLine().charAt(0);
+					while(moveChoice!='A'||moveChoice!='B') {
+						System.out.println("Wrong input. Try again.\n");
+						moveChoice = c.nextLine().charAt(0);
+					}
 					switch (moveChoice) {
 					case 'A' -> {
 						board.Attack(Begin1 + moveLength1);
@@ -3329,6 +3562,10 @@ public class BackgammonGameProc {
 							+ " attack opponent checker at " + (Begin1 + moveLength1) + " \n");
 					System.out.println("B) Checkers: " + Begin2 + "->" + (Begin2 + moveLength1) + " \n");
 					moveChoice = c.nextLine().charAt(0);
+					while(moveChoice!='A'||moveChoice!='B') {
+						System.out.println("Wrong input. Try again.\n");
+						moveChoice = c.nextLine().charAt(0);
+					}
 					switch (moveChoice) {
 					case 'A' -> {
 						board.Attack(Begin1 + moveLength1);
@@ -3360,6 +3597,10 @@ public class BackgammonGameProc {
 							+ " attack opponent checker at " + (Begin1 + moveLength2) + ", " + Begin2 + "->"
 							+ (Begin2 + moveLength1) + " attack opponent checker at " + (Begin2 + moveLength1) + " \n");
 					moveChoice = c.nextLine().charAt(0);
+					while(moveChoice!='A'||moveChoice!='B') {
+						System.out.println("Wrong input. Try again.\n");
+						moveChoice = c.nextLine().charAt(0);
+					}
 					switch (moveChoice) {
 					case 'A' -> {
 						board.makeMove(Begin1, Begin1 + moveLength1);
@@ -3391,6 +3632,10 @@ public class BackgammonGameProc {
 							+ " attack opponent checker at " + (Begin1 + moveLength2) + ", " + Begin2 + "->"
 							+ (Begin2 + moveLength1) + " attack opponent checker at " + (Begin2 - moveLength1) + " \n");
 					moveChoice = c.nextLine().charAt(0);
+					while(moveChoice!='A'||moveChoice!='B') {
+						System.out.println("Wrong input. Try again.\n");
+						moveChoice = c.nextLine().charAt(0);
+					}
 					switch (moveChoice) {
 					case 'A' -> {
 						board.makeMove(Begin1, Begin1 + moveLength1);
@@ -3420,6 +3665,10 @@ public class BackgammonGameProc {
 					System.out.println("B) Checkers: " + Begin1 + "->" + (Begin1 + moveLength2) + ", " + Begin2 + "->"
 							+ (Begin2 + moveLength1) + " attack opponent checker at " + (Begin2 + moveLength1) + " \n");
 					moveChoice = c.nextLine().charAt(0);
+					while(moveChoice!='A'||moveChoice!='B') {
+						System.out.println("Wrong input. Try again.\n");
+						moveChoice = c.nextLine().charAt(0);
+					}
 					switch (moveChoice) {
 					case 'A' -> {
 						board.makeMove(Begin1, Begin1 + moveLength1);
@@ -3449,6 +3698,10 @@ public class BackgammonGameProc {
 					System.out.println("B) Checkers: " + Begin1 + "->" + (Begin1 + moveLength2) + ", " + Begin2 + "->"
 							+ (Begin2 + moveLength1) + " attack opponent checker at " + (Begin2 + moveLength1) + " \n");
 					moveChoice = c.nextLine().charAt(0);
+					while(moveChoice!='A'||moveChoice!='B') {
+						System.out.println("Wrong input. Try again.\n");
+						moveChoice = c.nextLine().charAt(0);
+					}
 					switch (moveChoice) {
 					case 'A' -> {
 						board.makeMove(Begin1, Begin1 + moveLength1);
@@ -3476,6 +3729,10 @@ public class BackgammonGameProc {
 					System.out.println("B) Checkers: " + Begin2 + "->" + (Begin2 + moveLength1)
 							+ " attack opponent checker at " + (Begin2 - moveLength1) + " \n");
 					moveChoice = c.nextLine().charAt(0);
+					while(moveChoice!='A'||moveChoice!='B') {
+						System.out.println("Wrong input. Try again.\n");
+						moveChoice = c.nextLine().charAt(0);
+					}
 					switch (moveChoice) {
 					case 'A' -> {
 						board.makeMove(Begin1, Begin1 + moveLength1);
@@ -3504,6 +3761,10 @@ public class BackgammonGameProc {
 					System.out.println("A) Checkers: " + Begin1 + "->" + (Begin1 + moveLength1) + ", " + Begin2 + "->"
 							+ (Begin2 + moveLength2) + " attack opponent checker at " + (Begin2 + moveLength2) + " \n");
 					moveChoice = c.nextLine().charAt(0);
+					while(moveChoice!='A') {
+						System.out.println("Wrong input. Try again.\n");
+						moveChoice = c.nextLine().charAt(0);
+					}
 					switch (moveChoice) {
 					case 'A' -> {
 						board.makeMove(Begin1, Begin1 + moveLength1);
@@ -3525,6 +3786,10 @@ public class BackgammonGameProc {
 					System.out.println("A) Checkers: " + Begin1 + "->" + (Begin1 + moveLength1) + ", " + Begin2 + "->"
 							+ (Begin2 + moveLength2) + " \n");
 					moveChoice = c.nextLine().charAt(0);
+					while(moveChoice!='A') {
+						System.out.println("Wrong input. Try again.\n");
+						moveChoice = c.nextLine().charAt(0);
+					}
 					switch (moveChoice) {
 					case 'A' -> {
 						board.makeMove(Begin1, Begin1 + moveLength1);
@@ -3544,6 +3809,10 @@ public class BackgammonGameProc {
 					System.out.println("A) Checkers: " + Begin1 + "->" + (Begin1 + moveLength1) + ", " + Begin2 + "->"
 							+ (Begin2 + moveLength2) + " attack opponent checker at " + (Begin2 - moveLength2) + " \n");
 					moveChoice = c.nextLine().charAt(0);
+					while(moveChoice!='A') {
+						System.out.println("Wrong input. Try again.\n");
+						moveChoice = c.nextLine().charAt(0);
+					}
 					switch (moveChoice) {
 					case 'A' -> {
 						board.makeMove(Begin1, Begin1 + moveLength1);
@@ -3564,6 +3833,10 @@ public class BackgammonGameProc {
 					System.out.println("A) Checkers: " + Begin1 + "->" + (Begin1 + moveLength1) + ", " + Begin2 + "->"
 							+ (Begin2 + moveLength2) + " \n");
 					moveChoice = c.nextLine().charAt(0);
+					while(moveChoice!='A') {
+						System.out.println("Wrong input. Try again.\n");
+						moveChoice = c.nextLine().charAt(0);
+					}
 					switch (moveChoice) {
 					case 'A' -> {
 						board.makeMove(Begin1, Begin1 + moveLength1);
@@ -3582,6 +3855,10 @@ public class BackgammonGameProc {
 					System.out.println("Choose from these options:\n");
 					System.out.println("A) Checkers: " + Begin1 + "->" + (Begin1 + moveLength1) + " \n");
 					moveChoice = c.nextLine().charAt(0);
+					while(moveChoice!='A') {
+						System.out.println("Wrong input. Try again.\n");
+						moveChoice = c.nextLine().charAt(0);
+					}
 					switch (moveChoice) {
 					case 'A' -> {
 						board.makeMove(Begin1, Begin1 + moveLength1);
@@ -3606,6 +3883,10 @@ public class BackgammonGameProc {
 							"A) Checkers: " + Begin1 + "->" + (Begin1 + moveLength2) + " attack opponent checker at "
 									+ (Begin1 + moveLength2) + ", " + Begin2 + "->" + (Begin2 + moveLength1) + " \n");
 					moveChoice = c.nextLine().charAt(0);
+					while(moveChoice!='A') {
+						System.out.println("Wrong input. Try again.\n");
+						moveChoice = c.nextLine().charAt(0);
+					}
 					switch (moveChoice) {
 					case 'A' -> {
 						board.Attack(Begin1 + moveLength2);
@@ -3628,6 +3909,10 @@ public class BackgammonGameProc {
 							"A) Checkers: " + Begin1 + "->" + (Begin1 + moveLength2) + " attack opponent checker at "
 									+ (Begin1 + moveLength2) + ", " + Begin2 + "->" + (Begin2 + moveLength1) + " \n");
 					moveChoice = c.nextLine().charAt(0);
+					while(moveChoice!='A') {
+						System.out.println("Wrong input. Try again.\n");
+						moveChoice = c.nextLine().charAt(0);
+					}
 					switch (moveChoice) {
 					case 'A' -> {
 						board.Attack(Begin1 + moveLength2);
@@ -3649,6 +3934,10 @@ public class BackgammonGameProc {
 					System.out.println("A) Checkers: " + Begin1 + "->" + (Begin1 + moveLength2) + ", " + Begin2 + "->"
 							+ (Begin2 + moveLength1) + " \n");
 					moveChoice = c.nextLine().charAt(0);
+					while(moveChoice!='A') {
+						System.out.println("Wrong input. Try again.\n");
+						moveChoice = c.nextLine().charAt(0);
+					}
 					switch (moveChoice) {
 					case 'A' -> {
 						board.makeMove(Begin1, Begin1 + moveLength2);
@@ -3668,6 +3957,10 @@ public class BackgammonGameProc {
 					System.out.println("A) Checkers: " + Begin1 + "->" + (Begin1 + moveLength2) + ", " + Begin2 + "->"
 							+ (Begin2 + moveLength1) + " \n");
 					moveChoice = c.nextLine().charAt(0);
+					while(moveChoice!='A') {
+						System.out.println("Wrong input. Try again.\n");
+						moveChoice = c.nextLine().charAt(0);
+					}
 					switch (moveChoice) {
 					case 'A' -> {
 						board.makeMove(Begin1, Begin1 + moveLength2);
@@ -3686,6 +3979,10 @@ public class BackgammonGameProc {
 					System.out.println("Choose from these options:\n");
 					System.out.println("A) Checkers: " + Begin2 + "->" + (Begin2 + moveLength1) + " \n");
 					moveChoice = c.nextLine().charAt(0);
+					while(moveChoice!='A') {
+						System.out.println("Wrong input. Try again.\n");
+						moveChoice = c.nextLine().charAt(0);
+					}
 					switch (moveChoice) {
 					case 'A' -> {
 						board.makeMove(Begin2, Begin2 + moveLength1);
@@ -3709,6 +4006,10 @@ public class BackgammonGameProc {
 							+ " attack opponent checker at " + (Begin1 + moveLength1) + ", " + Begin2 + "->"
 							+ (Begin2 + moveLength2) + " attack opponent checker at " + (Begin2 + moveLength2) + " \n");
 					moveChoice = c.nextLine().charAt(0);
+					while(moveChoice!='A') {
+						System.out.println("Wrong input. Try again.\n");
+						moveChoice = c.nextLine().charAt(0);
+					}
 					switch (moveChoice) {
 					case 'A' -> {
 						board.Attack(Begin2 + moveLength1);
@@ -3731,6 +4032,10 @@ public class BackgammonGameProc {
 							"A) Checkers: " + Begin1 + "->" + (Begin1 + moveLength1) + " attack opponent checker at "
 									+ (Begin1 + moveLength1) + ", " + Begin2 + "->" + (Begin2 + moveLength2) + " \n");
 					moveChoice = c.nextLine().charAt(0);
+					while(moveChoice!='A') {
+						System.out.println("Wrong input. Try again.\n");
+						moveChoice = c.nextLine().charAt(0);
+					}
 					switch (moveChoice) {
 					case 'A' -> {
 						board.Attack(Begin1 + moveLength1);
@@ -3753,6 +4058,10 @@ public class BackgammonGameProc {
 							+ " attack opponent checker at " + (Begin1 + moveLength1) + ", " + Begin2 + "->"
 							+ (Begin2 + moveLength2) + " attack opponent checker at " + (Begin2 + moveLength2) + " \n");
 					moveChoice = c.nextLine().charAt(0);
+					while(moveChoice!='A') {
+						System.out.println("Wrong input. Try again.\n");
+						moveChoice = c.nextLine().charAt(0);
+					}
 					switch (moveChoice) {
 					case 'A' -> {
 						board.Attack(Begin1 + moveLength1);
@@ -3775,6 +4084,10 @@ public class BackgammonGameProc {
 							"A) Checkers: " + Begin1 + "->" + (Begin1 + moveLength1) + " attack opponent checker at "
 									+ (Begin1 + moveLength1) + ", " + Begin2 + "->" + (Begin2 + moveLength2) + " \n");
 					moveChoice = c.nextLine().charAt(0);
+					while(moveChoice!='A') {
+						System.out.println("Wrong input. Try again.\n");
+						moveChoice = c.nextLine().charAt(0);
+					}
 					switch (moveChoice) {
 					case 'A' -> {
 						board.Attack(Begin1 + moveLength1);
@@ -3795,6 +4108,10 @@ public class BackgammonGameProc {
 					System.out.println("A) Checkers: " + Begin1 + "->" + (Begin1 + moveLength1)
 							+ " attack opponent checker at " + (Begin1 + moveLength1) + " \n");
 					moveChoice = c.nextLine().charAt(0);
+					while(moveChoice!='A') {
+						System.out.println("Wrong input. Try again.\n");
+						moveChoice = c.nextLine().charAt(0);
+					}
 					switch (moveChoice) {
 					case 'A' -> {
 						board.Attack(Begin1 + moveLength1);
@@ -3820,6 +4137,10 @@ public class BackgammonGameProc {
 							+ " attack opponent checker at " + (Begin1 + moveLength2) + ", " + Begin2 + "->"
 							+ (Begin2 + moveLength1) + " attack opponent checker at " + (Begin2 - moveLength1) + " \n");
 					moveChoice = c.nextLine().charAt(0);
+					while(moveChoice!='A') {
+						System.out.println("Wrong input. Try again.\n");
+						moveChoice = c.nextLine().charAt(0);
+					}
 					switch (moveChoice) {
 					case 'A' -> {
 						board.Attack(Begin1 + moveLength2);
@@ -3843,6 +4164,10 @@ public class BackgammonGameProc {
 							+ " attack opponent checker at " + (Begin1 + moveLength2) + ", " + Begin2 + "->"
 							+ (Begin2 + moveLength1) + " attack opponent checker at " + (Begin2 - moveLength1) + " \n");
 					moveChoice = c.nextLine().charAt(0);
+					while(moveChoice!='A') {
+						System.out.println("Wrong input. Try again.\n");
+						moveChoice = c.nextLine().charAt(0);
+					}
 					switch (moveChoice) {
 					case 'A' -> {
 						board.Attack(Begin1 + moveLength2);
@@ -3865,6 +4190,10 @@ public class BackgammonGameProc {
 					System.out.println("A) Checkers: " + Begin1 + "->" + (Begin1 + moveLength2) + ", " + Begin2 + "->"
 							+ (Begin2 + moveLength1) + " attack opponent checker at " + (Begin2 + moveLength1) + " \n");
 					moveChoice = c.nextLine().charAt(0);
+					while(moveChoice!='A') {
+						System.out.println("Wrong input. Try again.\n");
+						moveChoice = c.nextLine().charAt(0);
+					}
 					switch (moveChoice) {
 					case 'A' -> {
 						board.makeMove(Begin1, Begin1 + moveLength2);
@@ -3905,6 +4234,10 @@ public class BackgammonGameProc {
 					System.out.println("A) Checkers: " + Begin2 + "->" + (Begin2 + moveLength1)
 							+ " attack opponent checker at " + (Begin2 + moveLength1) + " \n");
 					moveChoice = c.nextLine().charAt(0);
+					while(moveChoice!='A') {
+						System.out.println("Wrong input. Try again.\n");
+						moveChoice = c.nextLine().charAt(0);
+					}
 					switch (moveChoice) {
 					case 'A' -> {
 						board.Attack(Begin2 + moveLength1);
@@ -3931,6 +4264,10 @@ public class BackgammonGameProc {
 					System.out.println("B) Checkers: " + Begin1 + "->" + (Begin1 + moveLength2) + ", " + Begin2 + "->"
 							+ (Begin2 + moveLength1) + " attack opponent checker at " + (Begin2 + moveLength1) + " \n");
 					moveChoice = c.nextLine().charAt(0);
+					while(moveChoice!='A'||moveChoice!='B') {
+						System.out.println("Wrong input. Try again.\n");
+						moveChoice = c.nextLine().charAt(0);
+					}
 					switch (moveChoice) {
 					case 'A' -> {
 						board.Attack(Begin1 + moveLength1);
@@ -3959,6 +4296,10 @@ public class BackgammonGameProc {
 					System.out.println("A) Checkers: " + Begin1 + "->" + (Begin1 + moveLength2) + ", " + Begin2 + "->"
 							+ (Begin2 + moveLength1) + " attack opponent checker at " + (Begin2 + moveLength1) + " \n");
 					moveChoice = c.nextLine().charAt(0);
+					while(moveChoice!='A') {
+						System.out.println("Wrong input. Try again.\n");
+						moveChoice = c.nextLine().charAt(0);
+					}
 					switch (moveChoice) {
 					case 'A' -> {
 						board.makeMove(Begin1, Begin1 + moveLength2);
@@ -3984,6 +4325,10 @@ public class BackgammonGameProc {
 							+ " attack opponent checker at " + (Begin1 + moveLength2) + ", " + Begin2 + "->"
 							+ (Begin2 + moveLength1) + " attack opponent checker at " + (Begin2 + moveLength1) + " \n");
 					moveChoice = c.nextLine().charAt(0);
+					while(moveChoice!='A'||moveChoice!='B') {
+						System.out.println("Wrong input. Try again.\n");
+						moveChoice = c.nextLine().charAt(0);
+					}
 					switch (moveChoice) {
 					case 'A' -> {
 						board.Attack(Begin1 + moveLength1);
@@ -4013,6 +4358,10 @@ public class BackgammonGameProc {
 							+ " attack opponent checker at " + (Begin2 + moveLength1) + ", " + Begin1 + "->"
 							+ (Begin1 + moveLength2) + " attack opponent checker at " + (Begin1 + moveLength2) + " \n");
 					moveChoice = c.nextLine().charAt(0);
+					while(moveChoice!='A') {
+						System.out.println("Wrong input. Try again.\n");
+						moveChoice = c.nextLine().charAt(0);
+					}
 					switch (moveChoice) {
 					case 'A' -> {
 						board.Attack(Begin2 + moveLength1);
@@ -4035,6 +4384,10 @@ public class BackgammonGameProc {
 							"A) Checkers: " + Begin1 + "->" + (Begin1 + moveLength1) + " attack opponent checker at "
 									+ (Begin1 + moveLength1) + ", " + Begin2 + "->" + (Begin2 + moveLength2) + " \n");
 					moveChoice = c.nextLine().charAt(0);
+					while(moveChoice!='A') {
+						System.out.println("Wrong input. Try again.\n");
+						moveChoice = c.nextLine().charAt(0);
+					}
 					switch (moveChoice) {
 					case 'A' -> {
 						board.Attack(Begin1 + moveLength1);
@@ -4057,6 +4410,10 @@ public class BackgammonGameProc {
 					System.out.println("B) Checker: " + Begin2 + "->" + (Begin2 + moveLength2)
 							+ " attack opponent checker at " + (Begin2 + moveLength2) + " \n");
 					moveChoice = c.nextLine().charAt(0);
+					while(moveChoice!='A'||moveChoice!='B') {
+						System.out.println("Wrong input. Try again.\n");
+						moveChoice = c.nextLine().charAt(0);
+					}
 					switch (moveChoice) {
 					case 'A' -> {
 						board.Attack(Begin1 + moveLength1);
@@ -4087,6 +4444,10 @@ public class BackgammonGameProc {
 					System.out.println("A) Checkers: " + Begin1 + "->" + (Begin1 + moveLength2) + " \n");
 					System.out.println("B) Checkers: " + Begin2 + "->" + (Begin2 + moveLength2) + " \n");
 					moveChoice = c.nextLine().charAt(0);
+					while(moveChoice!='A'||moveChoice!='B') {
+						System.out.println("Wrong input. Try again.\n");
+						moveChoice = c.nextLine().charAt(0);
+					}
 					switch (moveChoice) {
 					case 'A' -> {
 						board.makeMove(Begin1, Begin1 + moveLength2);
@@ -4112,6 +4473,10 @@ public class BackgammonGameProc {
 					System.out.println("B) Checkers: " + Begin2 + "->" + (Begin2 + moveLength2)
 							+ " attack opponent checker at " + (Begin2 + moveLength2) + " \n");
 					moveChoice = c.nextLine().charAt(0);
+					while(moveChoice!='A'||moveChoice!='B') {
+						System.out.println("Wrong input. Try again.\n");
+						moveChoice = c.nextLine().charAt(0);
+					}
 					switch (moveChoice) {
 					case 'A' -> {
 						board.makeMove(Begin1, Begin1 + moveLength2);
@@ -4137,6 +4502,10 @@ public class BackgammonGameProc {
 							+ " attack opponent checker at " + (Begin1 + moveLength2) + " \n");
 					System.out.println("B) Checkers: " + Begin2 + "->" + (Begin2 + moveLength2) + " \n");
 					moveChoice = c.nextLine().charAt(0);
+					while(moveChoice!='A'||moveChoice!='B') {
+						System.out.println("Wrong input. Try again.\n");
+						moveChoice = c.nextLine().charAt(0);
+					}
 					switch (moveChoice) {
 					case 'A' -> {
 						board.Attack(Begin1 + moveLength2);
@@ -4163,6 +4532,10 @@ public class BackgammonGameProc {
 					System.out.println("B) Checkers: " + Begin2 + "->" + (Begin2 + moveLength2)
 							+ " attack opponent checker at " + (Begin2 - moveLength2) + " \n");
 					moveChoice = c.nextLine().charAt(0);
+					while(moveChoice!='A'||moveChoice!='B') {
+						System.out.println("Wrong input. Try again.\n");
+						moveChoice = c.nextLine().charAt(0);
+					}
 					switch (moveChoice) {
 					case 'A' -> {
 						board.Attack(Begin1 + moveLength2);
@@ -4187,6 +4560,10 @@ public class BackgammonGameProc {
 					System.out.println("Choose from these options:\n");
 					System.out.println("A) Checkers: " + Begin2 + "->" + (Begin2 + moveLength2) + " \n");
 					moveChoice = c.nextLine().charAt(0);
+					while(moveChoice!='A') {
+						System.out.println("Wrong input. Try again.\n");
+						moveChoice = c.nextLine().charAt(0);
+					}
 					switch (moveChoice) {
 					case 'A' -> {
 						board.makeMove(Begin2, Begin2 + moveLength2);
@@ -4205,6 +4582,10 @@ public class BackgammonGameProc {
 					System.out.println("A) Checkers: " + Begin2 + "->" + (Begin2 + moveLength2)
 							+ " attack opponent checker at " + (Begin2 - moveLength2) + " \n");
 					moveChoice = c.nextLine().charAt(0);
+					while(moveChoice!='A') {
+						System.out.println("Wrong input. Try again.\n");
+						moveChoice = c.nextLine().charAt(0);
+					}
 					switch (moveChoice) {
 					case 'A' -> {
 						board.Attack(Begin2 + moveLength2);
@@ -4222,7 +4603,6 @@ public class BackgammonGameProc {
 
 		}
 		}
-		c.close();
 	}
 
 	public void listHint_MoveOff(int Begin1, int Begin2, int moveLength1, int moveLength2, Player p, Player opponent) {
@@ -4237,6 +4617,10 @@ public class BackgammonGameProc {
 				System.out.println("A) Checkers: " + Begin1 + "->" + "OFF" + "  " + Begin2 + "->" + "OFF" + " \n");
 				System.out.println("Your choice:\n");
 				moveChoice = c.nextLine().charAt(0);
+				while(moveChoice!='A') {
+					System.out.println("Wrong input. Try again.\n");
+					moveChoice = c.nextLine().charAt(0);
+				}
 				switch (moveChoice) {
 				case 'A' -> {
 					board.moveOff(Begin1);
@@ -4258,6 +4642,10 @@ public class BackgammonGameProc {
 							+ "OFF" + " \n");
 					System.out.println("Your choice:\n");
 					moveChoice = c.nextLine().charAt(0);
+					while(moveChoice!='A') {
+						System.out.println("Wrong input. Try again.\n");
+						moveChoice = c.nextLine().charAt(0);
+					}
 					switch (moveChoice) {
 					case 'A' -> {
 						board.makeMove(Begin1, Begin1 - moveLength1);
@@ -4275,6 +4663,10 @@ public class BackgammonGameProc {
 					System.out.println("A) Checker: " + Begin2 + "->" + "OFF" + " \n");
 					System.out.println("Your choice:\n");
 					moveChoice = c.nextLine().charAt(0);
+					while(moveChoice!='A') {
+						System.out.println("Wrong input. Try again.\n");
+						moveChoice = c.nextLine().charAt(0);
+					}
 					switch (moveChoice) {
 					case 'A' -> {
 						board.moveOff(Begin2);
@@ -4296,6 +4688,10 @@ public class BackgammonGameProc {
 							+ (Begin2 - moveLength2) + " \n");
 					System.out.println("Your choice:\n");
 					moveChoice = c.nextLine().charAt(0);
+					while(moveChoice!='A') {
+						System.out.println("Wrong input. Try again.\n");
+						moveChoice = c.nextLine().charAt(0);
+					}
 					switch (moveChoice) {
 					case 'A' -> {
 						board.makeMove(Begin1, Begin1 - moveLength1);
@@ -4315,6 +4711,10 @@ public class BackgammonGameProc {
 					System.out.println("A) " + Begin2 + "->" + (Begin2 - moveLength2) + " \n");
 					System.out.println("Your choice:\n");
 					moveChoice = c.nextLine().charAt(0);
+					while(moveChoice!='A') {
+						System.out.println("Wrong input. Try again.\n");
+						moveChoice = c.nextLine().charAt(0);
+					}
 					switch (moveChoice) {
 					case 'A' -> {
 						board.makeMove(Begin2, Begin2 - moveLength2);
@@ -4335,6 +4735,10 @@ public class BackgammonGameProc {
 				System.out.println("A) Checkers: " + Begin1 + "->" + "OFF" + "  " + Begin2 + "->" + "OFF" + " \n");
 				System.out.println("Your choice:\n");
 				moveChoice = c.nextLine().charAt(0);
+				while(moveChoice!='A') {
+					System.out.println("Wrong input. Try again.\n");
+					moveChoice = c.nextLine().charAt(0);
+				}
 				switch (moveChoice) {
 				case 'A' -> {
 					board.moveOff(Begin1);
@@ -4355,6 +4759,10 @@ public class BackgammonGameProc {
 							+ "OFF" + " \n");
 					System.out.println("Your choice:\n");
 					moveChoice = c.nextLine().charAt(0);
+					while(moveChoice!='A') {
+						System.out.println("Wrong input. Try again.\n");
+						moveChoice = c.nextLine().charAt(0);
+					}
 					switch (moveChoice) {
 					case 'A' -> {
 						board.makeMove(Begin2, Begin2 + moveLength1);
@@ -4372,6 +4780,10 @@ public class BackgammonGameProc {
 					System.out.println("A) Checker: " + Begin1 + "->" + "OFF" + " \n");
 					System.out.println("Your choice:\n");
 					moveChoice = c.nextLine().charAt(0);
+					while(moveChoice!='A') {
+						System.out.println("Wrong input. Try again.\n");
+						moveChoice = c.nextLine().charAt(0);
+					}
 					switch (moveChoice) {
 					case 'A' -> {
 						board.moveOff(Begin1);
@@ -4393,6 +4805,10 @@ public class BackgammonGameProc {
 							+ (Begin1 + moveLength2) + " \n");
 					System.out.println("Your choice:\n");
 					moveChoice = c.nextLine().charAt(0);
+					while(moveChoice!='A') {
+						System.out.println("Wrong input. Try again.\n");
+						moveChoice = c.nextLine().charAt(0);
+					}
 					switch (moveChoice) {
 					case 'A' -> {
 						board.makeMove(Begin1, Begin1 + moveLength2);
@@ -4412,6 +4828,10 @@ public class BackgammonGameProc {
 					System.out.println("A) " + Begin2 + "->" + (Begin2 + moveLength1) + " \n");
 					System.out.println("Your choice:\n");
 					moveChoice = c.nextLine().charAt(0);
+					while(moveChoice!='A') {
+						System.out.println("Wrong input. Try again.\n");
+						moveChoice = c.nextLine().charAt(0);
+					}
 					switch (moveChoice) {
 					case 'A' -> {
 						board.makeMove(Begin2, Begin2 + moveLength1);
@@ -4428,7 +4848,6 @@ public class BackgammonGameProc {
 		}
 
 		}
-		c.close();
 	}
 	public void showHint_moveBack(Player p, int step1, int step2, Player opponent) {
 		Scanner c = new Scanner(System.in);
@@ -4551,6 +4970,5 @@ public class BackgammonGameProc {
 			}
 			}
 		}
-		c.close();
 	}
 }

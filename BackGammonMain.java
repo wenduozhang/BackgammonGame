@@ -36,6 +36,7 @@ public class BackGammonMain {
 			game.initGame();
 			game.playGame();
 		}
+		s.close();
 	}
 
 }
